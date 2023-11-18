@@ -71,7 +71,7 @@ After the character is sent to the terminal, the interrupt is activated again.
 uint8_t temp = 0;
 void HAL_UART_RxCpltCallback (UART_HandleTypeDef *huart){
 	if(huart -> Instance == USART2){
-		HAL_UART_Transmit(&huart2, &temp, 1, 50);
+		HAL_UART_Transmit(&huart2, &temp, 1, 50); //transmit 1 byte in 50ms
 		HAL_UART_Receive_IT(&huart2, &temp, 1);
 	}
 }
@@ -113,11 +113,17 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Infinite loop */
+  HAL_UART_Receive_IT(& huart2, &temp, 1);
   /* USER CODE BEGIN WHILE */
+  setTimer1(50);
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  if(timer1_flag==1){
+		  HAL_GPIO_TogglePin (LED_RED_GPIO_Port, LED_RED_Pin);
+		  setTimer1(50);
+	  }
+	  //HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
