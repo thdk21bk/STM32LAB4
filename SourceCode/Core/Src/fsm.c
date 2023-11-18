@@ -6,6 +6,7 @@
  */
 #include "fsm.h"
 int status_command = INIT_command, status_uart = INIT_uart;
+char str[50];
 uint8_t temp = 0;
 uint8_t cmd[50];
 uint32_t ADC_value = 0;
@@ -52,7 +53,7 @@ void uart_communication_fsm(){
 
 	case RST:
 		ADC_value = HAL_ADC_GetValue (&hadc1);
-		HAL_UART_Transmit (&huart2, (void *) str, sprintf (str, "%d\n", ADC_value), 50);
+		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "%d\n", ADC_value), 50);
 		status_uart = WAIT;
 		setTimer2(300);
 		break;
@@ -61,8 +62,6 @@ void uart_communication_fsm(){
 		break;
 
 	case OK:
-		timer2_flag = 0;
-		timer2_counter=0;
 		status_uart = INIT_uart;
 		break;
 

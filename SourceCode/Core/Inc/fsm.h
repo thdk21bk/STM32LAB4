@@ -10,6 +10,7 @@
 
 #include "main.h"
 #include "SoftwareTimer.h"
+#include "stdio.h"
 
 #define MAX_BUFFER_SIZE 30
 
