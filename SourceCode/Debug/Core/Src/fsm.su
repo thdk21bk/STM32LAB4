@@ -1,3 +1,2 @@
-fsm.c:16:5:isCommandCorrect	4	static
-fsm.c:21:6:command_parser_fsm	8	static
-fsm.c:45:6:uart_communication_fsm	4	static
+fsm.c:21:6:command_parser_fsm	4	static
+fsm.c:50:6:uart_communication_fsm	4	static

@@ -13,8 +13,6 @@
 
 #define MAX_BUFFER_SIZE 30
 
-#define RST 0
-#define	OK 1
 #define INIT_command 4
 #define READ_command 5
 #define STOP_command 6
