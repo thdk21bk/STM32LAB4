@@ -17,9 +17,9 @@
 #define READ_command 5
 #define STOP_command 6
 #define INIT_uart 7
-#define RST_uart 8
-#define WAIT_uart 9
-#define OK_uart 10
+#define RST 8
+#define WAIT 9
+#define OK 10
 
 extern ADC_HandleTypeDef hadc1;
 extern UART_HandleTypeDef huart2;

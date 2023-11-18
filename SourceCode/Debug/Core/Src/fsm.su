@@ -1,2 +1,0 @@
-fsm.c:21:6:command_parser_fsm	4	static
-fsm.c:50:6:uart_communication_fsm	4	static

@@ -51,12 +51,19 @@ void uart_communication_fsm(){
 		break;
 
 	case RST:
+		ADC_value = HAL_ADC_GetValue (&hadc1);
+		HAL_UART_Transmit (&huart2, (void *) str, sprintf (str, "%d\n", ADC_value), 50);
+		status_uart = WAIT;
+		setTimer2(300);
 		break;
 
 	case WAIT:
 		break;
 
 	case OK:
+		timer2_flag = 0;
+		timer2_counter=0;
+		status_uart = INIT_uart;
 		break;
 
 	default:
