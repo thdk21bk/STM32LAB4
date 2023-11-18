@@ -67,11 +67,18 @@ static void MX_TIM2_Init(void);
 After the character is sent to the terminal, the interrupt is activated again.
 + Verify the UART communication channel: sending back any character received from the terminal => Loop-back communication
 */
-
+#define MAX_BUFFER_SIZE 30
+uint8_t temp = 0;
+uint8_t buffer[MAX_BUFFER_SIZE];
+uint8_t index_buffer = 0;
+uint8_t buffer_flag = 0;
 uint8_t temp = 0;
 void HAL_UART_RxCpltCallback (UART_HandleTypeDef *huart){
 	if(huart -> Instance == USART2){
-		HAL_UART_Transmit(&huart2, &temp, 1, 50); //transmit 1 byte in 50ms
+		buffer[index_buffer++] = temp; //store and increment the buffer index
+		if(index_buffer==30) index_buffer=0;
+		buffer_flag=1; //new data
+		//HAL_UART_Transmit(&huart2, &temp, 1, 50); //transmit 1 byte in 50ms
 		HAL_UART_Receive_IT(&huart2, &temp, 1);
 	}
 }
@@ -115,15 +122,26 @@ int main(void)
   /* Infinite loop */
   HAL_UART_Receive_IT(& huart2, &temp, 1);
   /* USER CODE BEGIN WHILE */
-  setTimer1(50);
+  //setTimer1(50);
+  uint32_t ADC_value = 0;
   while (1)
   {
+	  if(buffer_flag == 1){
+		  command_parser_fsm();
+		  buffer_flag = 0;
+	  }
+	  uart_communiation_fsm();
     /* USER CODE END WHILE */
-	  if(timer1_flag==1){
+
+/*	  if(timer1_flag==1){
 		  HAL_GPIO_TogglePin (LED_RED_GPIO_Port, LED_RED_Pin);
+		  ADC_value = HAL_ADC_GetValue (&hadc1);
+		  HAL_UART_Transmit (&huart2, (void *) str, sprintf (str, "%d\n", ADC_value), 1000);
+		  //sprintf converts the ADC value into string, str array. INCLUDED \n
+		  //Return the # characters written, and it is used as the length of the data to be transmitted.
 		  setTimer1(50);
 	  }
-	  //HAL_Delay(500);
+*/
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
