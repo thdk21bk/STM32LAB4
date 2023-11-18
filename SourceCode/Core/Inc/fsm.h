@@ -12,10 +12,24 @@
 #include "SoftwareTimer.h"
 
 #define MAX_BUFFER_SIZE 30
+
+#define RST 0
+#define	OK 1
+#define INIT_command 4
+#define READ_command 5
+#define STOP_command 6
+#define INIT_uart 7
+#define RST_uart 8
+#define WAIT_uart 9
+#define OK_uart 10
+
+extern ADC_HandleTypeDef hadc1;
+extern UART_HandleTypeDef huart2;
+extern uint8_t temp;
 extern uint8_t buffer[MAX_BUFFER_SIZE];
 extern uint8_t index_buffer;
 extern uint8_t buffer_flag;
 
 void command_parser_fsm();
-void uart_communiation_fsm();
+void uart_communication_fsm();
 #endif /* INC_FSM_H_ */

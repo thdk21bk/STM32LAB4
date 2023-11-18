@@ -19,7 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "SoftwareTimer.h"
+#include "fsm.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -72,7 +72,7 @@ After the character is sent to the terminal, the interrupt is activated again.
 //uint8_t buffer[MAX_BUFFER_SIZE];
 //uint8_t index_buffer = 0;
 //uint8_t buffer_flag = 0;
-uint8_t temp = 0;
+//uint8_t temp = 0;
 void HAL_UART_RxCpltCallback (UART_HandleTypeDef *huart){
 	if(huart -> Instance == USART2){
 		buffer[index_buffer++] = temp; //store and increment the buffer index
@@ -120,17 +120,17 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Infinite loop */
-  HAL_UART_Receive_IT(& huart2, &temp, 1);
+  HAL_UART_Receive_IT(&huart2, &temp, 1);
   /* USER CODE BEGIN WHILE */
   //setTimer1(50);
-  uint32_t ADC_value = 0;
+  //uint32_t ADC_value = 0;
   while (1)
   {
 	  if(buffer_flag == 1){
 		  command_parser_fsm();
 		  buffer_flag = 0;
 	  }
-	  uart_communiation_fsm();
+	  uart_communication_fsm();
     /* USER CODE END WHILE */
 
 /*	  if(timer1_flag==1){
