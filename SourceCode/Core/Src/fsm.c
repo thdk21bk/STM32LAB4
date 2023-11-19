@@ -56,14 +56,11 @@ void uart_communication_fsm(){
 	case RST:
 		if(timer2_flag==1){
 		ADC_value = HAL_ADC_GetValue (&hadc1);
-		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "!ADC=%d#\n", ADC_value), 50);
+		HAL_UART_Transmit(&huart2, (void *)str, sprintf(str, "!ADC=%d#\r\n", ADC_value), 50);
 		status_command = INIT_command;
 		setTimer2(300);
 		}
 		break;
-
-//	case WAIT:
-//		break;
 
 	case OK:
 		ADC_value = 0;
