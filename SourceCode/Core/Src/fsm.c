@@ -27,7 +27,7 @@ void command_parser_fsm(){
 		if (temp == '!') reset();
 		else if (temp != '#' && temp != '!') cmd[index_cmd++] = temp;
 		else if (temp == '#') {
-			reset(); // reset all para for the next state
+			reset(); // reset all para for the next state, RST
 			status_command = IMP_command; // state defines RST or OK
 		}
 		break;
