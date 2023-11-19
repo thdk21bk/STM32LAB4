@@ -1,7 +1,7 @@
 /*
  * fsm.h
  *
- *  Created on: Nov 18, 2023
+ *  Created on: Nov 17, 2023
  *      Author: ASUS
  */
 
@@ -16,10 +16,10 @@
 
 #define INIT_command 4
 #define READ_command 5
-#define STOP_command 6
+#define IMP_command 6
 #define INIT_uart 7
 #define RST 8
-#define WAIT 9
+//#define WAIT 9
 #define OK 10
 
 extern ADC_HandleTypeDef hadc1;

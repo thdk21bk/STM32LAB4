@@ -75,8 +75,9 @@ After the character is sent to the terminal, the interrupt is activated again.
 //uint8_t temp = 0;
 void HAL_UART_RxCpltCallback (UART_HandleTypeDef *huart){
 	if(huart -> Instance == USART2){
+		HAL_UART_Transmit(&huart2, &temp, 1, 500); //transmit 1 byte in 500ms
 		buffer[index_buffer++] = temp; //store and increment the buffer index
-		if(index_buffer==30) index_buffer=0;
+		if(index_buffer==MAX_BUFFER_SIZE) index_buffer=0;
 		buffer_flag=1; //new data
 		//HAL_UART_Transmit(&huart2, &temp, 1, 50); //transmit 1 byte in 50ms
 		HAL_UART_Receive_IT(&huart2, &temp, 1);
@@ -117,13 +118,13 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT (&htim2);
+  HAL_UART_Receive_IT(&huart2, &temp, 1);
+  HAL_ADC_Start(&hadc1);
+  setTimer1(100);
   /* USER CODE END 2 */
 
   /* Infinite loop */
-  HAL_UART_Receive_IT(&huart2, &temp, 1);
   /* USER CODE BEGIN WHILE */
-  //setTimer1(50);
-  //uint32_t ADC_value = 0;
   while (1)
   {
 	  if(buffer_flag == 1){
@@ -131,6 +132,10 @@ int main(void)
 		  buffer_flag = 0;
 	  }
 	  uart_communication_fsm();
+	  if(timer1_flag == 1){
+		  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+		  setTimer1(100);
+	  }
     /* USER CODE END WHILE */
 
 /*	  if(timer1_flag==1){
