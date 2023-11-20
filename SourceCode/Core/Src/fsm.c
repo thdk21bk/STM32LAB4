@@ -32,7 +32,7 @@ void command_parser_fsm(){
 		}
 		break;
 
-	case IMP_command:
+	case IMP_command: // (-) Bị trễ 1 ký tự (khi thêm 1 ký tự/ enter -> hiện) -> quick: move all the commands in the IMP_command into the temp == '#'
 		if (cmd[0] == 'R' && cmd[1] == 'S' && cmd[2] == 'T'){
 			status_uart = RST;
 			setTimer2(1);
