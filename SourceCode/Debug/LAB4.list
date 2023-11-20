@@ -330,7 +330,7 @@ void command_parser_fsm(){
  80002c6:	781b      	ldrb	r3, [r3, #0]
  80002c8:	2b23      	cmp	r3, #35	; 0x23
  80002ca:	d12b      	bne.n	8000324 <command_parser_fsm+0xbc>
-			reset(); // reset all para for the next state
+			reset(); // reset all para for the next state, RST
  80002cc:	f7ff ffbc 	bl	8000248 <reset>
 			status_command = IMP_command; // state defines RST or OK
  80002d0:	4b16      	ldr	r3, [pc, #88]	; (800032c <command_parser_fsm+0xc4>)
